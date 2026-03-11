@@ -1,6 +1,6 @@
 # AI Codebase Assistant
 
-A production-ready codebase indexing system using Django REST Framework, Langchain, and ChromaDB. It ingests GitHub repositories, splits source code into chunks, extracts AST metadata from Python files, maps semantic meanings using local HuggingFace embeddings, and answers developer questions via a RAG interface over a sleek React frontend using the Gemini free tier API (`gemini-2.5-flash`).
+A production-ready codebase indexing system using Django REST Framework, Langchain, and ChromaDB. It ingests GitHub repositories, splits source code into chunks, extracts AST metadata from Python files, maps semantic meanings using the Gemini Embedding API (`text-embedding-004`), and answers developer questions via a RAG interface over a sleek React frontend using the Gemini free tier API (`gemini-2.5-flash`).
 
 ## Prerequisites
 - **Python 3.10+**
@@ -89,5 +89,5 @@ Create another **New Web Service** (or a free Static Site, but Docker is recomme
 
 ## Flow
 
-1. **Upload Page (`/`):** Paste a public repository link. The backend will spawn a background thread, cloning, chunking and embedding the codebase in ChromaDB (using `all-MiniLM-L6-v2` locally).
+1. **Upload Page (`/`):** Paste a public repository link. The backend will spawn a background thread, cloning, chunking and embedding the codebase in ChromaDB (using Gemini's `text-embedding-004` API).
 2. **Chat Page (`/chat`):** Ask questions referencing the uploaded repository. Top-match contextual snippets (and AST function mapping) will feed a prompt responding with exact code references powered by Google's `gemini-2.5-flash` model.

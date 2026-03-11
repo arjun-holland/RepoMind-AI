@@ -80,12 +80,12 @@ Create a **New Web Service** and carefully select the following options:
    - `GEMINI_API_KEY`: Your Gemini API key.
 
 #### 2. Frontend Web Service
-Create another **New Web Service** (or a free Static Site, but Docker is recommended for Nginx proxying):
+Create another **New Web Service** (or a free Static Site, but Docker is recommended for Nginx routing):
 1. Connect the exact same GitHub repository.
 2. Select **Language**: `Docker`.
 3. Under the advanced section, set **Dockerfile Path**: `Dockerfile.frontend`.
-
-*Important: Render will give your Backend an auto-generated URL (e.g., `https://ai-codebase-api.onrender.com`). You may need to update the `nginx.conf` and explicitly replace `proxy_pass http://backend:8000/api/;` with your actual Render Backend URL!*
+4. Add your Environment Variables:
+   - `VITE_API_URL`: The URL of your deployed Backend Web Service (e.g., `https://ai-codebase-api.onrender.com`).
 
 ## Flow
 

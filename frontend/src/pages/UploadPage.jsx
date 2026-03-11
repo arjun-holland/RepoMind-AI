@@ -15,7 +15,8 @@ export default function UploadPage() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:8000/api/repository/ingest', { repo_url: url });
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await axios.post(`${API_URL}/api/repository/ingest`, { repo_url: url });
       
       if (res.data.message === 'Repository already indexed') {
         setStatus('success');
@@ -35,7 +36,8 @@ export default function UploadPage() {
   const pollStatus = async (recordId) => {
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/repository/status?record_id=${recordId}`);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await axios.get(`${API_URL}/api/repository/status?record_id=${recordId}`);
         const repoStatus = res.data.status;
         
         if (repoStatus === 'ready') {

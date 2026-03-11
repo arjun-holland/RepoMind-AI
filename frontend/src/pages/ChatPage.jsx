@@ -32,7 +32,8 @@ export default function ChatPage() {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:8000/api/codebase/query', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await axios.post(`${API_URL}/api/codebase/query`, {
         repo_url: repoUrl,
         query: userMessage.content
       });

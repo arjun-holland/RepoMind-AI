@@ -67,14 +67,25 @@ docker-compose up --build
 - Frontend will be available at `http://localhost/`
 - Backend API will be available at `http://localhost:8000/`
 
-### Render Deployment Configuration
-The project includes a `render.yaml` infrastructure-as-code file for one-click deployments. It provisions two services:
-1. **Frontend**: Using `Dockerfile.frontend` (Node build + Nginx).
-2. **Backend**: Using `Dockerfile.backend` (Django + Gunicorn).
+### Render Deployment Configuration (Manual)
+Since Render Blueprints require a paid plan, you can deploy the two services manually for free by connecting your GitHub repository.
 
-**Environment Variables Required on Render:**
-- `MONGO_URI`: Your MongoDB Atlas connection string.
-- `GEMINI_API_KEY`: Your Google AI Studio API key.
+#### 1. Backend Web Service
+Create a **New Web Service** and carefully select the following options:
+1. Connect your GitHub repository.
+2. Select **Language**: `Docker`.
+3. Under the advanced section, set **Dockerfile Path**: `Dockerfile.backend`.
+4. Add your Environment Variables:
+   - `MONGO_URI`: Your MongoDB connection string.
+   - `GEMINI_API_KEY`: Your Gemini API key.
+
+#### 2. Frontend Web Service
+Create another **New Web Service** (or a free Static Site, but Docker is recommended for Nginx proxying):
+1. Connect the exact same GitHub repository.
+2. Select **Language**: `Docker`.
+3. Under the advanced section, set **Dockerfile Path**: `Dockerfile.frontend`.
+
+*Important: Render will give your Backend an auto-generated URL (e.g., `https://ai-codebase-api.onrender.com`). You may need to update the `nginx.conf` and explicitly replace `proxy_pass http://backend:8000/api/;` with your actual Render Backend URL!*
 
 ## Flow
 

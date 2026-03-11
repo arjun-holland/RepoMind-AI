@@ -7,6 +7,11 @@ COPY frontend/package*.json ./
 RUN npm install
 
 COPY frontend/ .
+
+# Accept the Render environment variable during the Docker build stage
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm run build
 
 # Serve stage

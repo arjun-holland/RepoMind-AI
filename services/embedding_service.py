@@ -26,33 +26,9 @@
 
 
 import os
-import google.generativeai as genai
-from langchain.embeddings.base import Embeddings
-
-class GeminiEmbedding(Embeddings):
-
-    def __init__(self):
-        api_key = os.getenv("GEMINI_API_KEY")
-        genai.configure(api_key=api_key)
-        self.model = "models/embedding-001"
-
-    def embed_documents(self, texts):
-        embeddings = []
-        for text in texts:
-            result = genai.embed_content(
-                model=self.model,
-                content=text
-            )
-            embeddings.append(result["embedding"])
-        return embeddings
-
-    def embed_query(self, text):
-        result = genai.embed_content(
-            model=self.model,
-            content=text
-        )
-        return result["embedding"]
-
+from langchain.embeddings import HuggingFaceEmbeddings
 
 def get_embedding_model():
-    return GeminiEmbedding()
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )

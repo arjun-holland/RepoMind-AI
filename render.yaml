@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-codebase-frontend
+    env: docker
+    dockerfilePath: ./Dockerfile.frontend
+    autoDeploy: true
+
+  - type: web
+    name: ai-codebase-backend
+    env: docker
+    dockerfilePath: ./Dockerfile.backend
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+    autoDeploy: true
